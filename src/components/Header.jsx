@@ -69,14 +69,7 @@ export default function Navbar() {
                             {dark ? <FiMoon size={18} /> : <FiSun size={18} />}
                         </button>
 
-                        <Link
-                            to="https://examify.uz/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block px-4 py-2 rounded-xl bg-black text-white shadow-md hover:opacity-90 transition font-medium"
-                        >
-                            Examify
-                        </Link>
+                        
                         <Link
                             to="/login"
                             className="inline-flex items-center px-4 py-2 rounded-xl bg-blue-500 text-white font-medium shadow-sm hover:bg-blue-600 transition"
