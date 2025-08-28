@@ -10,9 +10,9 @@ export default function Login() {
         <Box className="w-full min-h-screen flex bg-[#f5faff]">
             <Box className="hidden md:flex flex-1 items-center justify-center">
                 <img
-                    src="assets/login.png"
+                    src="assets/photo_2025-05-26_08-43-11.jpg"
                     alt="illustration"
-                    className="max-w-md"
+                    className="w-full h-[800px]"
                 />
             </Box>
 
