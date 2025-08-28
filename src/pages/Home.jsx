@@ -122,7 +122,7 @@ function Home() {
                                     <span className="absolute top-3 left-3 bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full">
                                         {course.category?.name}
                                     </span>
-                                </div>
+                                </div>  
 
                                 <div className="p-5">
                                     <div className="flex items-center gap-3 mb-3">
