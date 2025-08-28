@@ -8,7 +8,7 @@ function About() {
     const [mentors, setMentors] = useState([]);
 
     useEffect(() => {
-        axios.get('https://edora-backend.onrender.com/users/mentors')
+        axios.get('https://fn3.fixoo.uz/users/mentors')
             .then(res => {
                 setMentors(res.data.data);
             })

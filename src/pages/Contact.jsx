@@ -28,7 +28,7 @@ export default function Contact() {
 
         try {
             const res = await axios.post(
-                "https://edora-backend.onrender.com/api/contact",
+                "https://fn3.fixoo.uz/api/contact",
                 formData,
                 { headers: { "Content-Type": "application/json" } }
             );

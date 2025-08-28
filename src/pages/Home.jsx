@@ -13,7 +13,7 @@ function Home() {
     const [mentors, setMentors] = useState([]);
 
     useEffect(() => {
-        axios.get('https://edora-backend.onrender.com/users/mentors')
+        axios.get('https://fn3.fixoo.uz/users/mentors')
             .then(res => {
                 setMentors(res.data.data);
             })
@@ -23,7 +23,7 @@ function Home() {
     useEffect(() => {
         const loadCategories = async () => {
             try {
-                const res = await axios.get("https://edora-backend.onrender.com/course-category/getAll");
+                const res = await axios.get("https://fn3.fixoo.uz/course-category/getAll");
                 console.log("API categories response:", res.data);
                 const cats = res.data;
                 setCategories([{ id: null, name: "Barcha kurslar" }, ...cats]);
@@ -35,7 +35,7 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        axios.get('https://edora-backend.onrender.com/courses')
+        axios.get('https://fn3.fixoo.uz/courses')
             .then(res => {
                 console.log(res.data.data);
                 setCourses(res.data.data);
@@ -115,7 +115,7 @@ function Home() {
                             >
                                 <div className="relative">
                                     <img
-                                        src={`https://edora-backend.onrender.com/uploads/banner/${course.banner}`}
+                                        src={`https://fn3.fixoo.uz/uploads/banner/${course.banner}`}
                                         alt={course.name}
                                         className="w-full h-[280px] object-cover rounded-lg"
                                     />
@@ -127,7 +127,7 @@ function Home() {
                                 <div className="p-5">
                                     <div className="flex items-center gap-3 mb-3">
                                         <img
-                                            src={`https://edora-backend.onrender.com/uploads/mentors/${course.mentor.image}`}
+                                            src={`https://fn3.fixoo.uz/uploads/mentors/${course.mentor.image}`}
                                             alt={course.mentor?.fullName}
                                             className="w-10 h-10 rounded-full object-cover"
                                         />

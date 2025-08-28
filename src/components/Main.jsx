@@ -11,7 +11,7 @@ function Main() {
     useEffect(() => {
         const loadCategories = async () => {
             try {
-                const res = await axios.get("https://edora-backend.onrender.com/course-category/getAll");
+                const res = await axios.get("https://fn3.fixoo.uz/course-category/getAll");
                 console.log("API categories response:", res.data);
 
                 const cats = res.data;
@@ -24,7 +24,7 @@ function Main() {
     }, []);
 
     useEffect(() => {
-        axios.get('https://edora-backend.onrender.com/courses')
+        axios.get('https://fn3.fixoo.uz/courses')
             .then(res => {
                 console.log(res.data.data);
                 setCourses(res.data.data);
@@ -69,7 +69,7 @@ function Main() {
                         >
                             <div className="relative">
                                 <img
-                                    src={`https://edora-backend.onrender.com/uploads/banner/${course.banner}`}
+                                    src={`https://fn3.fixoo.uz/uploads/banner/${course.banner}`}
                                     alt={course.name}
                                     className="w-full h-[280px] object-cover rounded-lg"
                                 />
@@ -81,7 +81,7 @@ function Main() {
                             <div className="p-5">
                                 <div className="flex items-center gap-3 mb-3">
                                     <img
-                                        src={`https://edora-backend.onrender.com/uploads/mentors/${course.mentor.image}`}
+                                        src={`https://fn3.fixoo.uz/uploads/mentors/${course.mentor.image}`}
                                         alt={course.mentor?.fullName}
                                         className="w-10 h-10 rounded-full object-cover"
                                     />

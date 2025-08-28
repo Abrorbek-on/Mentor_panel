@@ -14,7 +14,7 @@ function Course() {
 
 
     useEffect(() => {
-        axios.get('https://edora-backend.onrender.com/courses').then(data => setCourses(data.data.data))
+        axios.get('https://fn3.fixoo.uz/courses').then(data => setCourses(data.data.data))
 
     }, [category])
 
