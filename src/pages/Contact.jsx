@@ -1,11 +1,51 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Card, CardContent, Typography } from "@mui/material";
+import {
+    Dialog,
+    DialogContent,
+    Typography,
+    CircularProgress,
+    Card,
+    CardContent
+} from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ErrorIcon from "@mui/icons-material/Error";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Footer from "../components/Footer";
 import Navbar from "../components/Header";
+
+function ContactModal({ open, onClose, loading, success }) {
+    return (
+        <Dialog open={open} onClose={onClose}>
+            <DialogContent sx={{ textAlign: "center", p: 4 }}>
+                {loading ? (
+                    <>
+                        <CircularProgress size={60} sx={{ color: "green" }} />
+                        <Typography mt={2} fontWeight="bold">
+                            Yuborilmoqda...
+                        </Typography>
+                    </>
+                ) : success ? (
+                    <>
+                        <CheckCircleIcon sx={{ fontSize: 60, color: "green" }} />
+                        <Typography mt={2} fontWeight="bold">
+                            Muvaffaqiyatli jo'natildi
+                        </Typography>
+                    </>
+                ) : (
+                    <>
+                        <ErrorIcon sx={{ fontSize: 60, color: "red" }} />
+                        <Typography mt={2} fontWeight="bold">
+                            Xatolik yuz berdi
+                        </Typography>
+                    </>
+                )}
+            </DialogContent>
+        </Dialog>
+    );
+}
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -15,7 +55,8 @@ export default function Contact() {
     });
 
     const [loading, setLoading] = useState(false);
-    const [response, setResponse] = useState("");
+    const [modalOpen, setModalOpen] = useState(false);
+    const [success, setSuccess] = useState(null);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +65,8 @@ export default function Contact() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setResponse("");
+        setSuccess(null);
+        setModalOpen(true);
 
         try {
             const res = await axios.post(
@@ -32,19 +74,32 @@ export default function Contact() {
                 formData,
                 { headers: { "Content-Type": "application/json" } }
             );
-            setResponse(res.data.message);
+            if (res.data.message.includes("yuborildi")) {
+                setSuccess(true);
+            } else {
+                setSuccess(false);
+            }
         } catch (err) {
-            setResponse("Xatolik yuz berdi. Iltimos qayta urinib ko‘ring.");
+            setSuccess(false);
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        if (response && response.includes("yuborildi")) {
+        if (success !== null && !loading) {
+            const timer = setTimeout(() => {
+                setModalOpen(false);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [success, loading]);
+
+    useEffect(() => {
+        if (success) {
             setFormData({ fullName: "", phone: "", message: "" });
         }
-    }, [response]);
+    }, [success]);
 
     return (
         <>
@@ -52,15 +107,22 @@ export default function Contact() {
 
             <section>
                 <div className="max-w-[1200px] m-auto mt-[120px]">
-                    <a className="text-blue-500" href="">Bog`lanish</a><br />
-                    <strong className="text-[35px]">Savollaringiz bo`lsa murojaat qiling</strong>
+                    <a className="text-blue-500" href="">
+                        Bog`lanish
+                    </a>
+                    <br />
+                    <strong className="text-[35px]">
+                        Savollaringiz bo`lsa murojaat qiling
+                    </strong>
                 </div>
 
                 <div className="max-w-[1200px] m-auto justify-between flex gap-4 mt-[20px]">
                     <Card sx={{ minWidth: 350, boxShadow: 3 }}>
                         <CardContent>
                             <PhoneIcon color="primary" fontSize="large" />
-                            <Typography variant="h6" fontWeight="bold">Telefon</Typography>
+                            <Typography variant="h6" fontWeight="bold">
+                                Telefon
+                            </Typography>
                             <Typography variant="body1">+998(90) 840 03 85</Typography>
                         </CardContent>
                     </Card>
@@ -68,7 +130,9 @@ export default function Contact() {
                     <Card sx={{ minWidth: 350, boxShadow: 3 }}>
                         <CardContent>
                             <EmailIcon color="primary" fontSize="large" />
-                            <Typography variant="h6" fontWeight="bold">Elektron Pochta</Typography>
+                            <Typography variant="h6" fontWeight="bold">
+                                Elektron Pochta
+                            </Typography>
                             <Typography variant="body1">abrorjonk9@gmail.com</Typography>
                         </CardContent>
                     </Card>
@@ -76,7 +140,9 @@ export default function Contact() {
                     <Card sx={{ minWidth: 350, boxShadow: 3 }}>
                         <CardContent>
                             <LocationOnIcon color="primary" fontSize="large" />
-                            <Typography variant="h6" fontWeight="bold">Manzil</Typography>
+                            <Typography variant="h6" fontWeight="bold">
+                                Manzil
+                            </Typography>
                             <Typography variant="body1">
                                 Fergana vil, Fergana sh, <br /> Najot Talim
                             </Typography>
@@ -93,7 +159,8 @@ export default function Contact() {
 
                     <form className="mt-[50px]" onSubmit={handleSubmit}>
                         <div className="text-center">
-                            <label className="mr-[26%]">To'liq ismingizni kiriting</label><br />
+                            <label className="mr-[26%]">To'liq ismingizni kiriting</label>
+                            <br />
                             <input
                                 name="fullName"
                                 value={formData.fullName}
@@ -103,10 +170,12 @@ export default function Contact() {
                                 placeholder="F.I.SH"
                                 required
                             />
-                        </div><br />
+                        </div>
+                        <br />
 
                         <div className="text-center">
-                            <label className="mr-[35%]">Telefon</label><br />
+                            <label className="mr-[35%]">Telefon</label>
+                            <br />
                             <input
                                 name="phone"
                                 value={formData.phone}
@@ -116,10 +185,12 @@ export default function Contact() {
                                 placeholder="+998"
                                 required
                             />
-                        </div><br />
+                        </div>
+                        <br />
 
                         <div className="text-center">
-                            <label className="mr-[36%]">Xabar</label><br />
+                            <label className="mr-[36%]">Xabar</label>
+                            <br />
                             <textarea
                                 name="message"
                                 value={formData.message}
@@ -128,7 +199,8 @@ export default function Contact() {
                                 placeholder="Matn"
                                 required
                             />
-                        </div><br />
+                        </div>
+                        <br />
 
                         <div className="flex justify-center">
                             <button
@@ -140,12 +212,15 @@ export default function Contact() {
                             </button>
                         </div>
                     </form>
-
-                    {response && (
-                        <p className="text-center mt-4 text-green-600 font-semibold">{response}</p>
-                    )}
                 </div>
             </section>
+
+            <ContactModal
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+                loading={loading}
+                success={success}
+            />
 
             <Footer />
         </>
