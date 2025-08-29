@@ -1,10 +1,18 @@
 import React from "react";
-import { TextField, Button, Typography, Box, InputAdornment, IconButton } from "@mui/material";
-import { Visibility, VisibilityOff, Phone } from "@mui/icons-material";
+import {
+    TextField,
+    Button,
+    Typography,
+    Box,
+    InputAdornment,
+    IconButton,
+} from "@mui/material";
+import { Visibility, VisibilityOff, Phone, Person } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
     const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
     return (
         <Box className="w-full min-h-screen flex bg-[#f5faff]">
@@ -19,8 +27,22 @@ export default function Login() {
             <Box className="flex-1 flex items-center justify-center">
                 <Box className="w-[350px] bg-white p-6 rounded-xl shadow-md">
                     <Typography variant="h5" align="center" fontWeight="bold" mb={2}>
-                        Kirish
+                        Ro'yxatdan o'tish
                     </Typography>
+
+                    <TextField
+                        label="F.I.Sh"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Person />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
 
                     <TextField
                         label="Telefon"
@@ -53,24 +75,43 @@ export default function Login() {
                         }}
                     />
 
-                    <Box display="flex" justifyContent="flex-end" mt={1}>
-                        <Link to="/resetpassword" className="text-blue-600 text-sm">
-                            Parolni unutdingizmi?
-                        </Link>
-                    </Box>
+                    <TextField
+                        label="Parolni tasdiqlash"
+                        type={showConfirmPassword ? "text" : "password"}
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={() =>
+                                            setShowConfirmPassword(!showConfirmPassword)
+                                        }
+                                    >
+                                        {showConfirmPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
 
                     <Button
                         variant="contained"
                         fullWidth
                         sx={{ mt: 2, borderRadius: "25px", py: 1.2 }}
                     >
-                        Kirish
+                        Ro'yxatdan o'tish
                     </Button>
 
                     <Typography align="center" mt={2} fontSize={14}>
-                        Hisobingiz yo‘qmi?{" "}
-                        <Link to="/register" className="text-blue-600 font-medium">
-                            Ro'yxatdan o'tish
+                        Menda hisob mavjud{" "}
+                        <Link to="/login" className="text-blue-600 font-medium">
+                            Kirish
                         </Link>
                     </Typography>
                 </Box>

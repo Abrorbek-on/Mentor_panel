@@ -1,10 +1,18 @@
 import React from "react";
-import { TextField, Button, Typography, Box, InputAdornment, IconButton } from "@mui/material";
+import {
+    TextField,
+    Button,
+    Typography,
+    Box,
+    InputAdornment,
+    IconButton,
+} from "@mui/material";
 import { Visibility, VisibilityOff, Phone } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function ResetPassword() {
     const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
     return (
         <Box className="w-full min-h-screen flex bg-[#f5faff]">
@@ -12,14 +20,14 @@ export default function Login() {
                 <img
                     src="assets/photo_2025-05-26_08-43-11.jpg"
                     alt="illustration"
-                    className="w-full h-[800px]"
+                    className="w-full h-[800px] object-contain"
                 />
             </Box>
 
             <Box className="flex-1 flex items-center justify-center">
                 <Box className="w-[350px] bg-white p-6 rounded-xl shadow-md">
                     <Typography variant="h5" align="center" fontWeight="bold" mb={2}>
-                        Kirish
+                        Parolni qayta o'rnatish
                     </Typography>
 
                     <TextField
@@ -37,7 +45,7 @@ export default function Login() {
                     />
 
                     <TextField
-                        label="Parol"
+                        label="Yangi parol"
                         type={showPassword ? "text" : "password"}
                         fullWidth
                         margin="normal"
@@ -53,24 +61,42 @@ export default function Login() {
                         }}
                     />
 
-                    <Box display="flex" justifyContent="flex-end" mt={1}>
-                        <Link to="/resetpassword" className="text-blue-600 text-sm">
-                            Parolni unutdingizmi?
-                        </Link>
-                    </Box>
+                    <TextField
+                        label="Parolni tasdiqlash"
+                        type={showConfirmPassword ? "text" : "password"}
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={() =>
+                                            setShowConfirmPassword(!showConfirmPassword)
+                                        }
+                                    >
+                                        {showConfirmPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
 
                     <Button
                         variant="contained"
                         fullWidth
                         sx={{ mt: 2, borderRadius: "25px", py: 1.2 }}
                     >
-                        Kirish
+                        Saqlash
                     </Button>
 
                     <Typography align="center" mt={2} fontSize={14}>
-                        Hisobingiz yo‘qmi?{" "}
-                        <Link to="/register" className="text-blue-600 font-medium">
-                            Ro'yxatdan o'tish
+                        <Link to="/login" className="text-blue-600 font-medium">
+                            ortga qaytish
                         </Link>
                     </Typography>
                 </Box>

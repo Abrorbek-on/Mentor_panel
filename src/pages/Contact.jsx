@@ -31,7 +31,8 @@ function ContactModal({ open, onClose, loading, success }) {
                     <>
                         <CheckCircleIcon sx={{ fontSize: 60, color: "green" }} />
                         <Typography mt={2} fontWeight="bold">
-                            Muvaffaqiyatli jo'natildi
+                            Muvaffaqiyatli jo'natildi  <br />
+                            Admin javobini kuting
                         </Typography>
                     </>
                 ) : (

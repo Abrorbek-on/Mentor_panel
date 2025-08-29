@@ -4,6 +4,8 @@ import Course from "./pages/Course";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/biz-haqimizda" element={<About />} />
         <Route path="/boglanish" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
   );
