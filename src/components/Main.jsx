@@ -37,7 +37,7 @@ function Main() {
         : courses.filter(course => course.category?.id === active);
 
     return (
-        <section className='w-full bg-white py-8'>
+        <section className='w-full py-8'>
             <div className='max-w-[1300px] m-auto'>
                 <div className='mt-[120px]'>
                     <span className='text-[60px]'>
@@ -65,7 +65,7 @@ function Main() {
                     {filteredCourses.map((course) => (
                         <div
                             key={course.id}
-                            className="w-[380px] h-[480px] bg-white rounded-sm shadow-lg overflow-hidden"
+                            className="w-[380px] h-[480px] rounded-sm shadow-lg overflow-hidden"
                         >
                             <div className="relative">
                                 <img
@@ -73,7 +73,7 @@ function Main() {
                                     alt={course.name}
                                     className="w-full h-[280px] object-cover rounded-lg"
                                 />
-                                <span className="absolute top-3 left-3 bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full">
+                                <span className="absolute top-3 left-3 text-white text-sm font-semibold px-3 py-1 rounded-full">
                                     {course.category?.name}
                                 </span>
                             </div>
@@ -95,7 +95,7 @@ function Main() {
 
                                 <div className="flex justify-between items-center mb-3">
                                     <p className="text-gray-600">Narxi:</p>
-                                    <span className="text-2xl font-bold text-black">
+                                    <span className="text-2xl font-bold">
                                         ${course.price}
                                     </span>
                                 </div>

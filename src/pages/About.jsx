@@ -29,7 +29,7 @@ function About() {
                 <div className="max-w-[1300px] m-auto mt-[120px]">
                     <div className="max-w-[1250px] m-auto">
                         <strong className="text-[50px]">Biz haqimizda</strong>
-                        <p className="text-gray-800">
+                        <p className="">
                             IT LIVE ACADEMY - 08.09.2022 yil tashkil etilgan va hozirgacha
                             faoliyat olib kelmoqda. IT LIVE ACADEMY kompaniyasining asosiy
                             faoliyat turi ikkiga bo'linadi, -Kelajak kasblariga
@@ -65,7 +65,7 @@ function About() {
                 </div>
             </section>
 
-            <section className="bg-gray-100 p-5">
+            <section className=" p-5">
                 <div className="max-w-[1250px] m-auto mt-[50px]">
                     <strong className="text-[40px] block mb-8">
                         Sertifikat va guvohnomalar

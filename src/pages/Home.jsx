@@ -58,7 +58,7 @@ function Home() {
     return (
         <>
             <Navbar />
-            <section className="w-full bg-white py-8">
+            <section className="w-full py-8">
                 <div className="max-w-[1300px] m-auto flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-12">
                     <div className="text-center md:text-left max-w-xl">
                         <h1 className="text-4xl md:text-[65px] font-bold leading-snug">
@@ -72,7 +72,7 @@ function Home() {
                         </p>
                         <Link
                             to="/kurslar"
-                            className="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-full shadow-md transition inline-block"
+                            className="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 font-medium rounded-full shadow-md transition inline-block"
                         >
                             Kurslar bilan tanishish
                         </Link>
@@ -88,7 +88,7 @@ function Home() {
                 </div>
             </section>
 
-            <section className='w-full bg-white py-8'>
+            <section className='w-full py-8'>
                 <div className='max-w-[1300px] m-auto'>
                     <span className='flex justify-center text-[60px]'>
                         <strong>Ommabop kurslar</strong>
@@ -117,7 +117,7 @@ function Home() {
                         {filteredCourses.map((course) => (
                             <div
                                 key={course.id}
-                                className="w-[380px] h-[480px] bg-white rounded-sm shadow-lg overflow-hidden"
+                                className="w-[380px] h-[480px] rounded-sm shadow-lg overflow-hidden"
                             >
                                 <div className="relative">
                                     <img
@@ -265,7 +265,7 @@ function Home() {
                         O’quvchilarimiz tomonidan qoldirilgan izohlar</span>
 
                     <div className='flex justify-between'>
-                        <div className="border w-[400px] h-[180px] rounded-2xl p-4 shadow-md bg-white">
+                        <div className="border w-[400px] h-[180px] rounded-2xl p-4 shadow-md">
                             <div>
                                 <img src="assets/quote.png" alt="quote" className="w-[40px] h-[40px]" />
                             </div>
@@ -295,7 +295,7 @@ function Home() {
                             </div>
                         </div>
 
-                        <div className="border w-[400px] h-[200px] rounded-2xl p-4 shadow-md bg-white">
+                        <div className="border w-[400px] h-[200px] rounded-2xl p-4 shadow-md ">
                             <div>
                                 <img src="assets/quote.png" alt="quote" className="w-[40px] h-[40px]" />
                             </div>
@@ -328,7 +328,7 @@ function Home() {
                             </div>
                         </div>
 
-                        <div className="border w-[400px] h-[200px] rounded-2xl p-4 shadow-md bg-white">
+                        <div className="border w-[400px] h-[200px] rounded-2xl p-4 shadow-md ">
                             <div>
                                 <img src="assets/quote.png" alt="quote" className="w-[40px] h-[40px]" />
                             </div>

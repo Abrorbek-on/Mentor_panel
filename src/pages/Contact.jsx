@@ -153,7 +153,7 @@ export default function Contact() {
             </section>
 
             <section>
-                <div className="max-w-[1200px] m-auto h-[600px] mt-[50px] bg-gradient-to-br from-[#EBF2FE] to-white">
+                <div className="max-w-[1200px] m-auto h-[600px] mt-[50px] border">
                     <strong className="text-[35px] flex justify-center pt-[50px]">
                         Murojaatlarni shu yerdan jo'nating!
                     </strong>
