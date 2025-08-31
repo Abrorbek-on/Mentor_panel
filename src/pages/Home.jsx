@@ -28,9 +28,9 @@ import {
     Notifications
 } from "@mui/icons-material";
 import { Settings } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
-export default function MentorLayout({ children }) {
+export default function MentorLayout() {
     const [drawerOpen] = useState(true);
     const [courseOpen, setCourseOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
@@ -81,7 +81,7 @@ export default function MentorLayout({ children }) {
                 </div>
                 <List className={`${darkMode ? "bg-gray-800 text-white" : "bg-gray-200 text-black"} h-full`}>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={() => navigate("/")}>
+                        <ListItemButton component={Link} to="/">
                             <ListItemIcon>
                                 <Dashboard className={darkMode ? "text-white" : "text-black"} />
                             </ListItemIcon>
@@ -105,17 +105,17 @@ export default function MentorLayout({ children }) {
 
                     <Collapse in={courseOpen} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemButton component={Link} to="/course" sx={{ pl: 4 }}>
                                 <ListItemText primary="Barcha kurslar" />
                             </ListItemButton>
-                            <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemButton component={Link} to="/category" sx={{ pl: 4 }}>
                                 <ListItemText primary="Kategoriyalar" />
                             </ListItemButton>
                         </List>
                     </Collapse>
 
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton component={Link} to="/category">
                             <ListItemIcon>
                                 <Comment className={darkMode ? "text-white" : "text-black"} />
                             </ListItemIcon>
@@ -124,7 +124,7 @@ export default function MentorLayout({ children }) {
                     </ListItem>
 
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton component={Link} to="/profile">
                             <ListItemIcon>
                                 <ExitToApp className={darkMode ? "text-white" : "text-black"} />
                             </ListItemIcon>
@@ -239,9 +239,10 @@ export default function MentorLayout({ children }) {
                     </div>
                 </div>
 
-                <p className="p-6"><strong>Asosiy</strong> <br /> <span>Boshqaruv paneli *</span></p>
-
-                <main className="p-6">{children}</main>
+                <main className="p-6">
+                    <Outlet />
+                </main>
+                <p className="pl-6 text-[20px]"><strong>Asosiy</strong> <br /><small>Boshqaruv paneli *</small></p>
             </div>
         </div>
     );

@@ -1,159 +1,328 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Box,
   Button,
-  Avatar,
-  Switch,
+  TextField,
+  IconButton,
+  Typography,
   Table,
+  TableHead,
   TableBody,
+  TableRow,
   TableCell,
   TableContainer,
-  TableHead,
-  TableRow,
   Paper,
+  Tooltip,
+  Menu,
+  MenuItem,
+  Divider,
+  Popover,
+  Avatar,
+  Collapse,
+  Switch
 } from "@mui/material";
-import { Add, Delete, Edit, Visibility } from "@mui/icons-material";
+import {
+  Dashboard,
+  School,
+  Comment,
+  ExitToApp,
+  Search,
+  FileDownload,
+  ExpandLess,
+  ExpandMore,
+  Notifications,
+  Settings,
+  DarkMode,
+  Add,
+  Edit,
+  Delete
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 export default function CoursesPage() {
-  const courses = [
-    {
-      id: 1,
-      banner: "🟨 JS",
-      name: "Frontend",
-      price: "499000",
-      sections: "bo‘lim",
-      tasks: "vazifalar",
-      qna: "savol javob",
-      purchased: 1,
-      active: true,
-    },
-    {
-      id: 2,
-      banner: "⬛ Next",
-      name: "Next Js",
-      price: "6000000",
-      sections: "bo‘lim",
-      tasks: "vazifalar",
-      qna: "savol javob",
-      purchased: 0,
-      active: false,
-    },
+  const [darkMode, setDarkMode] = useState(false);
+  const [courseOpen, setCourseOpen] = useState(false);
+  const [anchorElNotif, setAnchorElNotif] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElProfile, setAnchorElProfile] = useState(null);
+
+  const notificationsOpen = Boolean(anchorElNotif);
+  const settingsOpen = Boolean(anchorEl);
+  const profileMenuOpen = Boolean(anchorElProfile);
+
+
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const loadCourses = async () => {
+      try {
+        const res = await axios.get("https://fn3.fixoo.uz/courses");
+        setCourses(res.data.data);
+      } catch (err) {
+        console.error("Courses fetch error:", err);
+      }
+    };
+    loadCourses();
+  }, []);
+
+  const notifications = [
+    { id: 1, text: "Yangi dars yuklandi", time: "5 daqiqa oldin", img: "/avatar.png" },
+    { id: 2, text: "Sizning izohingizga javob berildi", time: "20 daqiqa oldin", img: "/avatar.png" },
+    { id: 3, text: "Yangi mentor qo‘shildi", time: "1 soat oldin", img: "/avatar.png" }
   ];
 
+
+  const handleNotifClick = (event) => setAnchorElNotif(event.currentTarget);
+  const handleNotifClose = () => setAnchorElNotif(null);
+
+  const handleSettingsOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleSettingsClose = () => setAnchorEl(null);
+
+  const handleProfileClick = (event) => setAnchorElProfile(event.currentTarget);
+  const handleProfileClose = () => setAnchorElProfile(null);
+
   return (
-    <div className="flex min-h-screen">
+    <div className={`flex h-screen ${darkMode ? "bg-gray-900 text-white" : ""}`}>
       {/* Sidebar */}
-      <aside className="w-64 bg-[#111827] text-white p-4 space-y-6">
-        <h2 className="text-xl font-bold">iTLive</h2>
-        <nav className="flex flex-col gap-2">
-          <Link to="/" className="hover:bg-gray-700 p-2 rounded">
-            Asosiy
-          </Link>
-          <Link to="/courses" className="hover:bg-gray-700 p-2 rounded">
-            Kurslar
-          </Link>
-          <Link to="/categories" className="hover:bg-gray-700 p-2 rounded">
-            Kategoriyalar
-          </Link>
-          <Link to="/comments" className="hover:bg-gray-700 p-2 rounded">
-            Izohlar
-          </Link>
-          <Link to="/logout" className="hover:bg-gray-700 p-2 rounded">
-            Chiqish
-          </Link>
-        </nav>
-      </aside>
+      <Drawer
+        variant="permanent"
+        PaperProps={{
+          className: `text-white w-64 ${darkMode ? "bg-gray-900" : "bg-[#0a1930]"}`,
+        }}
+      >
+        <div
+          className={`flex items-center justify-center py-5 border-b border-gray-700 ${darkMode ? "bg-gray-800" : "bg-gray-200"}`}
+        >
+          <img src="/assets/logo-dark.svg" alt="Logo" className="w-32" />
+        </div>
+        <List className={`${darkMode ? "bg-gray-800 text-white" : "bg-gray-200 text-black"} h-full`}>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/">
+              <ListItemIcon>
+                <Dashboard className={darkMode ? "text-white" : "text-black"} />
+              </ListItemIcon>
+              <ListItemText primary="Asosiy" />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => setCourseOpen(!courseOpen)}>
+              <ListItemIcon>
+                <School className={darkMode ? "text-white" : "text-black"} />
+              </ListItemIcon>
+              <ListItemText primary="Kurslar" />
+              {courseOpen ? (
+                <ExpandLess className={darkMode ? "text-white" : "text-black"} />
+              ) : (
+                <ExpandMore className={darkMode ? "text-white" : "text-black"} />
+              )}
+            </ListItemButton>
+          </ListItem>
+
+          <Collapse in={courseOpen} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton component={Link} to="/course" sx={{ pl: 4 }}>
+                <ListItemText primary="Barcha kurslar" />
+              </ListItemButton>
+              <ListItemButton component={Link} to="/category" sx={{ pl: 4 }}>
+                <ListItemText primary="Kategoriyalar" />
+              </ListItemButton>
+            </List>
+          </Collapse>
+
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/comments">
+              <ListItemIcon>
+                <Comment className={darkMode ? "text-white" : "text-black"} />
+              </ListItemIcon>
+              <ListItemText primary="Izohlar" />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/logout">
+              <ListItemIcon>
+                <ExitToApp className={darkMode ? "text-white" : "text-black"} />
+              </ListItemIcon>
+              <ListItemText primary="Chiqish" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Drawer>
 
       {/* Main Content */}
-      <main className="flex-1 bg-gray-100">
-        {/* Navbar */}
-        <AppBar position="static" color="default" className="shadow-md">
-          <Toolbar className="flex justify-between">
-            <Typography variant="h6">Mentor / Kurslar</Typography>
-            <div className="flex items-center gap-3">
-              <Switch />
-              <IconButton>
-                <Avatar alt="User" src="https://i.pravatar.cc/40" />
-              </IconButton>
-              <Button
-                variant="contained"
-                startIcon={<Add />}
-                className="bg-blue-500"
-              >
-                Qo‘shish
-              </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
+      <div className={`flex flex-col ml-64 w-[calc(100%-16rem)] ${darkMode ? "bg-gray-800" : "bg-gray-200"}`}>
+        {/* Topbar */}
+        <div className={`flex justify-between items-center shadow px-6 py-3 ${darkMode ? "bg-gray-800" : "bg-gray-200"}`}>
+          <span className="font-bold text-lg">Mentor</span>
 
-        {/* Kurslar jadvali */}
-        <div className="p-6">
+          <div className="flex items-center gap-4">
+            {/* Notifications */}
+            <Tooltip title="Bildirishnomalar">
+              <IconButton onClick={handleNotifClick}>
+                <Notifications className={darkMode ? "text-white" : "text-black"} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              anchorEl={anchorElNotif}
+              open={notificationsOpen}
+              onClose={handleNotifClose}
+              PaperProps={{ sx: { mt: 1.5, borderRadius: 2, width: 300, maxHeight: 300 } }}
+            >
+              {notifications.length === 0 ? (
+                <MenuItem><Typography>Bildirishnoma yo‘q</Typography></MenuItem>
+              ) : (
+                notifications.map((notif) => (
+                  <MenuItem key={notif.id} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                    <Avatar src={notif.img} sx={{ width: 40, height: 40 }} />
+                    <Box>
+                      <Typography variant="body2">{notif.text}</Typography>
+                      <Typography variant="caption" color="textSecondary">{notif.time}</Typography>
+                    </Box>
+                  </MenuItem>
+                ))
+              )}
+            </Menu>
+            {/* Settings */}
+            <Tooltip title="Sozlamalar">
+              <IconButton onClick={handleSettingsOpen}>
+                <Settings className={darkMode ? "text-white" : "text-black"} />
+              </IconButton>
+            </Tooltip>
+            <Popover
+              open={settingsOpen}
+              anchorEl={anchorEl}
+              onClose={handleSettingsClose}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+              <Box p={2}>
+                <Typography variant="h6">Sozlamalar</Typography>
+                <Divider sx={{ my: 1 }} />
+                <MenuItem>Hammasi joyida</MenuItem>
+              </Box>
+            </Popover>
+
+            <Tooltip title="Dark Mode">
+              <IconButton onClick={() => setDarkMode(!darkMode)}>
+                <DarkMode className={darkMode ? "text-white" : "text-black"} />
+              </IconButton>
+            </Tooltip>
+
+            {/* Profile */}
+            <Box onClick={handleProfileClick} className="flex items-center gap-2 cursor-pointer">
+              <Avatar alt="Mentor" src="/avatar.png" />
+              <Box>
+                <Typography>Abrorbek Karimov</Typography>
+                <Typography variant="body2" color="textSecondary">Mentor</Typography>
+              </Box>
+            </Box>
+            <Menu
+              anchorEl={anchorElProfile}
+              open={profileMenuOpen}
+              onClose={handleProfileClose}
+            >
+              <MenuItem component={Link} to="/profile" onClick={handleProfileClose}>
+                Mening profilim
+              </MenuItem>
+              <Divider />
+              <MenuItem sx={{ color: "red" }}>Chiqish</MenuItem>
+            </Menu>
+          </div>
+        </div>
+
+        {/* Table Section */}
+        <div className="flex-1 p-6">
+          <Box className="flex justify-between mb-4">
+            <Typography variant="h6" className="font-bold">Kurslar</Typography>
+            <Button variant="contained" startIcon={<Add />}>Qo‘shish</Button>
+          </Box>
+
+          {/* Search Bar */}
+          <div className="flex items-center gap-3 mb-4">
+            <TextField
+              size="small"
+              placeholder="Izlash"
+              InputProps={{
+                startAdornment: <Search className="text-gray-500 mr-2" />
+              }}
+            />
+            <Button variant="contained" color="primary">Qidirish</Button>
+          </div>
+
+          {/* Jadval */}
           <TableContainer component={Paper}>
             <Table>
-              <TableHead className="bg-gray-200">
-                <TableRow>
-                  <TableCell>Tr</TableCell>
-                  <TableCell>Banner</TableCell>
-                  <TableCell>Kurs nomi</TableCell>
-                  <TableCell>Narxi</TableCell>
-                  <TableCell>Bo‘limlar</TableCell>
-                  <TableCell>Vazifalar</TableCell>
-                  <TableCell>Savol Javoblar</TableCell>
-                  <TableCell>Sotib olish</TableCell>
-                  <TableCell>Faol</TableCell>
-                  <TableCell>Amallar</TableCell>
+              <TableHead>
+                <TableRow className={`${darkMode ? "bg-gray-800" : "bg-gray-200"}`}>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>TR</TableCell>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>Banner</TableCell>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>Kurs Nomi</TableCell>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>Narxi</TableCell>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>Bo‘limlar</TableCell>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>Vazifalar</TableCell>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>Savol Javoblar</TableCell>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>Sotib olish</TableCell>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>Faol</TableCell>
+                  <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>Amallar</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {courses.map((c, i) => (
-                  <TableRow key={c.id}>
-                    <TableCell>{i + 1}</TableCell>
-                    <TableCell>{c.banner}</TableCell>
-                    <TableCell>{c.name}</TableCell>
-                    <TableCell>{c.price}</TableCell>
+                {courses.map((course, index) => (
+                  <TableRow key={course.id} className={`${darkMode ? "bg-gray-800" : "bg-gray-200"}`}>
+                    <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>{index + 1}</TableCell>
                     <TableCell>
-                      <Button size="small" variant="outlined" color="warning">
-                        {c.sections}
-                      </Button>
+                      <img
+                        src={`https://fn3.fixoo.uz/uploads/banner/${course.banner}`}
+                        alt={course.name}
+                        className="w-16 h-10 rounded"
+                      />
+                    </TableCell>
+                    <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>{course.name}</TableCell>
+                    <TableCell>{course.price}</TableCell>
+                    <TableCell>
+                      <Button variant="contained" color="warning" size="small">Bo‘lim</Button>
                     </TableCell>
                     <TableCell>
-                      <Button size="small" variant="outlined" color="success">
-                        {c.tasks}
-                      </Button>
+                      <Button variant="contained" color="success" size="small">Vazifalar</Button>
                     </TableCell>
                     <TableCell>
-                      <Button size="small" variant="outlined" color="primary">
-                        {c.qna}
-                      </Button>
+                      <Button variant="contained" color="primary" size="small">Savol Javob</Button>
                     </TableCell>
-                    <TableCell>{c.purchased}</TableCell>
+                    <TableCell>{course.buyCount || 0}</TableCell>
                     <TableCell>
-                      <Switch checked={c.active} />
+                      <Switch defaultChecked={course.isActive} />
                     </TableCell>
                     <TableCell>
-                      <div className="flex gap-1">
-                        <IconButton color="primary">
-                          <Visibility />
-                        </IconButton>
-                        <IconButton color="secondary">
-                          <Edit />
-                        </IconButton>
-                        <IconButton color="error">
-                          <Delete />
-                        </IconButton>
-                      </div>
+                      <Box sx={{ display: "flex", gap: 1 }}>
+                        <IconButton color="primary"><Edit /></IconButton>
+                        <IconButton color="error"><Delete /></IconButton>
+                      </Box>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between mt-4">
+            <Button startIcon={<FileDownload />} variant="outlined" color="success">
+              Yuklab olish
+            </Button>
+            <Typography>
+              Rows per page: 10 &nbsp; 1-{courses.length} of {courses.length}
+            </Typography>
+          </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

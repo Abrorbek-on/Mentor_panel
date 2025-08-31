@@ -37,7 +37,6 @@ import { useNavigate } from "react-router-dom";
 export default function ProfilePage() {
     const [tab, setTab] = useState("info");
     const [showPassword, setShowPassword] = useState(false);
-
     const [courseOpen, setCourseOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
     const navigate = useNavigate();
@@ -66,10 +65,6 @@ export default function ProfilePage() {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSave = () => {
-        console.log("Yangilangan ma’lumot:", formData);
     };
 
     return (
@@ -113,10 +108,10 @@ export default function ProfilePage() {
 
                     <Collapse in={courseOpen} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("/course")}>
                                 <ListItemText primary="Barcha kurslar" />
                             </ListItemButton>
-                            <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("/category")}>
                                 <ListItemText primary="Kategoriyalar" />
                             </ListItemButton>
                         </List>
@@ -266,8 +261,7 @@ export default function ProfilePage() {
                         {/* O'ng oynalar */}
                         <Box className="flex-1">
                             {tab === "info" && (
-                                <Box className="bg-white p-6 rounded shadow flex gap-6 items-start max-w-xl w-full">
-
+                                <Box className="bg-white p-6 rounded shadow flex gap-6 items-start max-w-8xl w-full">
                                     <Box className="flex flex-col gap-3 w-full">
                                         <Avatar
                                             src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
@@ -280,8 +274,8 @@ export default function ProfilePage() {
                                             onChange={handleChange}
                                             fullWidth
                                             size="small"
+                                            sx={{ width: 300 }}
                                         />
-
                                         <TextField
                                             label="Telefon"
                                             name="phone"
@@ -289,6 +283,7 @@ export default function ProfilePage() {
                                             onChange={handleChange}
                                             fullWidth
                                             size="small"
+                                            sx={{ width: 300 }}
                                         />
                                         <TextField
                                             label="Yaratilgan sana"
@@ -298,77 +293,54 @@ export default function ProfilePage() {
                                             onChange={handleChange}
                                             fullWidth
                                             size="small"
+                                            sx={{ width: 300 }}
                                             InputLabelProps={{ shrink: true }}
                                         />
-
                                     </Box>
                                 </Box>
                             )}
-
                             {tab === "profile" && (
-                                <Box className="bg-white p-6 rounded shadow max-w-md flex flex-col gap-4">
+                                <Box className="bg-white p-6 rounded shadow max-w-8xl flex flex-col gap-4">
                                     <Avatar
                                         src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
                                         sx={{ width: 100, height: 100 }}
                                     />
-                                    <Button variant="outlined" component="label">
+                                    <Button variant="outlined" component="label" sx={{ width: 300 }}>
                                         Rasm tanlash
                                         <input type="file" hidden />
                                     </Button>
-                                    <TextField label="Ism Familiya" defaultValue="Abrorbek Karimov" fullWidth />
-                                    <Button variant="contained" color="success">Tastiqlash</Button>
+                                    <TextField label="Ism Familiya" defaultValue="Abrorbek Karimov" fullWidth sx={{ width: 300 }} />
+                                    <Button variant="contained" color="success" sx={{ width: 300 }}>Tastiqlash</Button>
                                 </Box>
                             )}
-
                             {tab === "password" && (
-                                <Box className="bg-white p-6 rounded shadow max-w-md flex flex-col gap-4">
-                                    <TextField
-                                        label="Joriy parol"
-                                        type={showPassword ? "text" : "password"}
-                                        fullWidth
-                                        InputProps={{
-                                            endAdornment: (
-                                                <IconButton onClick={() => setShowPassword(!showPassword)}>
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            ),
-                                        }}
-                                    />
-                                    <TextField
-                                        label="Yangi parol"
-                                        type={showPassword ? "text" : "password"}
-                                        fullWidth
-                                        InputProps={{
-                                            endAdornment: (
-                                                <IconButton onClick={() => setShowPassword(!showPassword)}>
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            ),
-                                        }}
-                                    />
-                                    <TextField
-                                        label="Yangi parolni tasdiqlang"
-                                        type={showPassword ? "text" : "password"}
-                                        fullWidth
-                                        InputProps={{
-                                            endAdornment: (
-                                                <IconButton onClick={() => setShowPassword(!showPassword)}>
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            ),
-                                        }}
-                                    />
-                                    <Button variant="contained" color="success">
+                                <Box className="bg-white p-6 rounded shadow max-w-8xl flex flex-col gap-4">
+                                    {["Joriy parol", "Yangi parol", "Yangi parolni tasdiqlang"].map((label, i) => (
+                                        <TextField
+                                            key={i}
+                                            label={label}
+                                            type={showPassword ? "text" : "password"}
+                                            fullWidth
+                                            sx={{ width: 300 }}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <IconButton onClick={() => setShowPassword(!showPassword)}>
+                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                ),
+                                            }}
+                                        />
+                                    ))}
+                                    <Button variant="contained" color="success" sx={{ width: 300 }}>
                                         Tastiqlash
                                     </Button>
                                 </Box>
                             )}
-
                             {tab === "phone" && (
-                                <Box className="bg-white p-6 rounded shadow max-w-md flex flex-col gap-4">
-                                    <TextField label="Eski telefon raqam" fullWidth />
-                                    <TextField label="Yangi telefon raqam" fullWidth />
-                                    <Button variant="contained" color="success">
+                                <Box className="bg-white p-6 rounded shadow max-w-8xl flex flex-col gap-4">
+                                    <TextField label="Eski telefon raqam" fullWidth sx={{ width: 300 }} />
+                                    <TextField label="Yangi telefon raqam" fullWidth sx={{ width: 300 }} />
+                                    <Button variant="contained" color="success" sx={{ width: 300 }}>
                                         Telefonni yangilash
                                     </Button>
                                 </Box>
