@@ -36,15 +36,12 @@ export default function MentorLayout() {
     const [darkMode, setDarkMode] = useState(false);
     const navigate = useNavigate();
 
-    // Profile menu
     const [anchorElProfile, setAnchorElProfile] = useState(null);
     const menuOpen = Boolean(anchorElProfile);
 
-    // Notifications menu
     const [anchorElNotif, setAnchorElNotif] = useState(null);
     const notificationsOpen = Boolean(anchorElNotif);
 
-    // Settings Popover
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -54,7 +51,6 @@ export default function MentorLayout() {
         { id: 3, text: "Yangi mentor qo‘shildi", time: "1 soat oldin", img: "/avatar.png" }
     ];
 
-    // Handlers
     const handleProfileClick = (event) => setAnchorElProfile(event.currentTarget);
     const handleProfileClose = () => setAnchorElProfile(null);
 
@@ -66,7 +62,6 @@ export default function MentorLayout() {
 
     return (
         <div className={`flex h-screen ${darkMode ? "bg-gray-900 text-white" : ""}`}>
-            {/* Sidebar */}
             <Drawer
                 variant="permanent"
                 className="w-64"
@@ -134,9 +129,7 @@ export default function MentorLayout() {
                 </List>
             </Drawer>
 
-            {/* Main Content */}
             <div className={`flex-1 flex flex-col ${darkMode ? "bg-gray-800" : "bg-gray-200"} `}>
-                {/* Topbar */}
                 <div
                     className={`flex justify-between items-center shadow px-6 py-3 ${darkMode ? "bg-gray-800" : "bg-gray-200"}`}
                 >
@@ -145,7 +138,6 @@ export default function MentorLayout() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        {/* Notifications */}
                         <Tooltip title="Bildirishnomalar">
                             <IconButton onClick={handleNotifClick}>
                                 <Notifications className={darkMode ? "text-white" : "text-black"} />
@@ -172,7 +164,6 @@ export default function MentorLayout() {
                             )}
                         </Menu>
 
-                        {/* Settings */}
                         <Tooltip title="Sozlamalar">
                             <IconButton onClick={handleSettingsOpen}>
                                 <Settings className={darkMode ? "text-white" : "text-black"} />

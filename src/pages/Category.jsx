@@ -84,7 +84,6 @@ export default function CategoryPage() {
 
   return (
     <div className={`flex h-screen ${darkMode ? "bg-gray-900 text-white" : ""}`}>
-      {/* Sidebar */}
       <Drawer
         variant="permanent"
         PaperProps={{
@@ -151,14 +150,11 @@ export default function CategoryPage() {
         </List>
       </Drawer>
 
-      {/* Main Content */}
       <div className={`flex flex-col ml-64 w-[calc(100%-16rem)] ${darkMode ? "bg-gray-800" : "bg-gray-200"}`}>
-        {/* Topbar */}
         <div className={`flex justify-between items-center shadow px-6 py-3 ${darkMode ? "bg-gray-800" : "bg-gray-200"}`}>
           <span className="font-bold text-lg">Mentor</span>
 
           <div className="flex items-center gap-4">
-            {/* Notifications */}
             <Tooltip title="Bildirishnomalar">
               <IconButton onClick={handleNotifClick}>
                 <Notifications className={darkMode ? "text-white" : "text-black"} />
@@ -185,7 +181,6 @@ export default function CategoryPage() {
               )}
             </Menu>
 
-            {/* Settings */}
             <Tooltip title="Sozlamalar">
               <IconButton onClick={handleSettingsOpen}>
                 <Settings className={darkMode ? "text-white" : "text-black"} />
@@ -211,7 +206,6 @@ export default function CategoryPage() {
               </IconButton>
             </Tooltip>
 
-            {/* Profile */}
             <Box onClick={handleProfileClick} className="flex items-center gap-2 cursor-pointer">
               <Avatar alt="Mentor" src="/avatar.png" />
               <Box>
@@ -233,13 +227,11 @@ export default function CategoryPage() {
           </div>
         </div>
 
-        {/* Table Section */}
         <div className="flex-1 p-6">
           <Typography variant="h6" className="font-bold mb-4">
             <strong>Kategoriyalar</strong> <br /> <small>Foydalanuvchilar * Kategoriyalar</small>
           </Typography>
 
-          {/* Search Bar */}
           <div className="flex items-center gap-3 mb-4">
             <TextField
               size="small"
@@ -251,7 +243,6 @@ export default function CategoryPage() {
             <Button variant="contained" color="primary">Qidirish</Button>
           </div>
 
-          {/* Jadval */}
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -279,7 +270,6 @@ export default function CategoryPage() {
             </Table>
           </TableContainer>
 
-          {/* Footer */}
           <div className="flex items-center justify-between mt-4">
             <Button startIcon={<FileDownload />} variant="outlined" color="success">
               Yuklab olish

@@ -69,7 +69,6 @@ export default function ProfilePage() {
 
     return (
         <div className={`flex h-screen ${darkMode ? "bg-gray-900 text-white" : ""}`}>
-            {/* --- Drawer --- */}
             <Drawer
                 variant="permanent"
                 className="w-64"
@@ -78,11 +77,11 @@ export default function ProfilePage() {
                 }}
             >
                 <div
-                    className={`flex items-center justify-center py-5 border-b ${darkMode ? "bg-gray-800 border-gray-700" : "bg-gray-200 border-gray-300"}`}
+                    className={`flex items-center justify-center py-5 border-b ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-300"}`}
                 >
                     <img src="/assets/logo-dark.svg" alt="Logo" className="w-32" />
                 </div>
-                <List className={`${darkMode ? "bg-gray-800 text-white" : "bg-gray-200 text-black"} h-full`}>
+                <List className={`${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"} h-full`}>
                     <ListItem disablePadding>
                         <ListItemButton onClick={() => navigate("/")}>
                             <ListItemIcon>
@@ -137,9 +136,7 @@ export default function ProfilePage() {
                 </List>
             </Drawer>
 
-            {/* --- Main --- */}
             <div className="flex-1 flex flex-col">
-                {/* --- Topbar --- */}
                 <div className="flex justify-end items-center gap-4 p-4 border-b border-gray-300">
                     <Tooltip title="Bildirishnomalar">
                         <IconButton onClick={(e) => setAnchorElNotif(e.currentTarget)}>
@@ -223,14 +220,12 @@ export default function ProfilePage() {
                     </Menu>
                 </div>
 
-                {/* --- Content --- */}
                 <main className="p-6">
                     <Typography variant="h5" className="mb-6 font-bold">
                         Shaxsiy ma`lumotlar
                     </Typography><br /><br />
 
                     <Box className="flex gap-6">
-                        {/* Chap menyu */}
                         <Box className="flex flex-col gap-4 w-64">
                             <Button
                                 variant={tab === "info" ? "contained" : "outlined"}
@@ -258,10 +253,9 @@ export default function ProfilePage() {
                             </Button>
                         </Box>
 
-                        {/* O'ng oynalar */}
                         <Box className="flex-1">
                             {tab === "info" && (
-                                <Box className="bg-white p-6 rounded shadow flex gap-6 items-start max-w-8xl w-full">
+                                <Box className={`${darkMode ? "bg-gray-900" : "bg-white"} p-6 rounded shadow flex gap-6 items-start max-w-8xl w-full`}>
                                     <Box className="flex flex-col gap-3 w-full">
                                         <Avatar
                                             src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
@@ -300,7 +294,7 @@ export default function ProfilePage() {
                                 </Box>
                             )}
                             {tab === "profile" && (
-                                <Box className="bg-white p-6 rounded shadow max-w-8xl flex flex-col gap-4">
+                                <Box className={`${darkMode ? "bg-gray-900" : "bg-white"} p-6 rounded shadow max-w-8xl flex flex-col gap-4 `}>
                                     <Avatar
                                         src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
                                         sx={{ width: 100, height: 100 }}
@@ -314,7 +308,7 @@ export default function ProfilePage() {
                                 </Box>
                             )}
                             {tab === "password" && (
-                                <Box className="bg-white p-6 rounded shadow max-w-8xl flex flex-col gap-4">
+                                <Box className={`${darkMode ? "bg-gray-900" : "bg-white"} p-6 rounded shadow max-w-8xl flex flex-col gap-4`}>
                                     {["Joriy parol", "Yangi parol", "Yangi parolni tasdiqlang"].map((label, i) => (
                                         <TextField
                                             key={i}
@@ -337,7 +331,7 @@ export default function ProfilePage() {
                                 </Box>
                             )}
                             {tab === "phone" && (
-                                <Box className="bg-white p-6 rounded shadow max-w-8xl flex flex-col gap-4">
+                                <Box className={`p-6 rounded shadow max-w-8xl flex flex-col gap-4 ${darkMode ? "bg-gray-900" : "bg-white"}`}>
                                     <TextField label="Eski telefon raqam" fullWidth sx={{ width: 300 }} />
                                     <TextField label="Yangi telefon raqam" fullWidth sx={{ width: 300 }} />
                                     <Button variant="contained" color="success" sx={{ width: 300 }}>
