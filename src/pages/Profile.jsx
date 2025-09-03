@@ -268,7 +268,11 @@ export default function ProfilePage() {
                                             onChange={handleChange}
                                             fullWidth
                                             size="small"
-                                            sx={{ width: 300 }}
+                                            sx={{
+                                                width: 300,
+                                                input: { color: darkMode ? 'white' : 'black' },
+                                                label: { color: darkMode ? 'white' : 'black' },
+                                            }}
                                         />
                                         <TextField
                                             label="Telefon"
@@ -277,7 +281,11 @@ export default function ProfilePage() {
                                             onChange={handleChange}
                                             fullWidth
                                             size="small"
-                                            sx={{ width: 300 }}
+                                            sx={{
+                                                width: 300,
+                                                input: { color: darkMode ? 'white' : 'black' },
+                                                label: { color: darkMode ? 'white' : 'black' },
+                                            }}
                                         />
                                         <TextField
                                             label="Yaratilgan sana"
@@ -287,7 +295,11 @@ export default function ProfilePage() {
                                             onChange={handleChange}
                                             fullWidth
                                             size="small"
-                                            sx={{ width: 300 }}
+                                            sx={{
+                                                width: 300,
+                                                input: { color: darkMode ? 'white' : 'black' },
+                                                label: { color: darkMode ? 'white' : 'black' },
+                                            }}
                                             InputLabelProps={{ shrink: true }}
                                         />
                                     </Box>
@@ -297,13 +309,17 @@ export default function ProfilePage() {
                                 <Box className={`${darkMode ? "bg-gray-900" : "bg-white"} p-6 rounded shadow max-w-8xl flex flex-col gap-4 `}>
                                     <Avatar
                                         src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
-                                        sx={{ width: 100, height: 100 }}
+                                        sx={{ width: 100, height: 100, }}
                                     />
                                     <Button variant="outlined" component="label" sx={{ width: 300 }}>
                                         Rasm tanlash
                                         <input type="file" hidden />
                                     </Button>
-                                    <TextField label="Ism Familiya" defaultValue="Abrorbek Karimov" fullWidth sx={{ width: 300 }} />
+                                    <TextField label="Ism Familiya" defaultValue="Abrorbek Karimov" fullWidth sx={{
+                                        width: 300,
+                                        input: { color: darkMode ? 'white' : 'black' },
+                                        label: { color: darkMode ? 'white' : 'black' },
+                                    }} />
                                     <Button variant="contained" color="success" sx={{ width: 300 }}>Tastiqlash</Button>
                                 </Box>
                             )}
@@ -315,7 +331,11 @@ export default function ProfilePage() {
                                             label={label}
                                             type={showPassword ? "text" : "password"}
                                             fullWidth
-                                            sx={{ width: 300 }}
+                                            sx={{
+                                                width: 300,
+                                                input: { color: darkMode ? 'white' : 'black' },
+                                                label: { color: darkMode ? 'white' : 'black' },
+                                            }}
                                             InputProps={{
                                                 endAdornment: (
                                                     <IconButton onClick={() => setShowPassword(!showPassword)}>
@@ -332,8 +352,8 @@ export default function ProfilePage() {
                             )}
                             {tab === "phone" && (
                                 <Box className={`p-6 rounded shadow max-w-8xl flex flex-col gap-4 ${darkMode ? "bg-gray-900" : "bg-white"}`}>
-                                    <TextField label="Eski telefon raqam" fullWidth sx={{ width: 300 }} />
-                                    <TextField label="Yangi telefon raqam" fullWidth sx={{ width: 300 }} />
+                                    <TextField label="Eski telefon raqam" fullWidth sx={{ width: 300, input: { color: darkMode ? 'white' : 'black' }, label: { color: darkMode ? 'white' : 'black' }, }} />
+                                    <TextField label="Yangi telefon raqam" fullWidth sx={{ width: 300, label: { color: darkMode ? 'white' : 'black' }, input: { color: darkMode ? 'white' : 'black' }, }} />
                                     <Button variant="contained" color="success" sx={{ width: 300 }}>
                                         Telefonni yangilash
                                     </Button>

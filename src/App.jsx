@@ -6,6 +6,9 @@ import ResetPassword from "./pages/ResetPassword";
 import ProfilePage from "./pages/Profile";
 import CategoryPage from "./pages/Category";
 import CoursesPage from "./pages/Course";
+import Camments from "./pages/Camments";
+import Course_Category from "./pages/Course/Category";
+import Darslar from "./pages/Course/Darslar";
 
 function App() {
   return (
@@ -15,12 +18,15 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
 
-        <Route>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/category" element={<CategoryPage />} />
-          <Route path="/course" element={<CoursesPage />} />
-        </Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/category" element={<CategoryPage />} />
+
+        <Route path="/course" element={<CoursesPage />} />
+        <Route path="/course/category" element={<Course_Category />} />
+        <Route path="/course/darslar" element={<Darslar />} />
+
+        <Route path="/comments" element={<Camments />} />
       </Routes>
     </BrowserRouter>
   );

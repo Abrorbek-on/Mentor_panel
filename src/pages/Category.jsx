@@ -140,7 +140,7 @@ export default function CategoryPage() {
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/logout">
+            <ListItemButton component={Link} to="/login">
               <ListItemIcon>
                 <ExitToApp className={darkMode ? "text-white" : "text-black"} />
               </ListItemIcon>
@@ -207,7 +207,7 @@ export default function CategoryPage() {
             </Tooltip>
 
             <Box onClick={handleProfileClick} className="flex items-center gap-2 cursor-pointer">
-              <Avatar alt="Mentor" src="/avatar.png" />
+              <Avatar alt="Mentor" src="/avatar.png"/>
               <Box>
                 <Typography>Abrorbek Karimov</Typography>
                 <Typography variant="body2" color="textSecondary">Mentor</Typography>

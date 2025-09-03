@@ -185,6 +185,7 @@ export default function MentorLayout() {
                         >
                             <Box p={2} sx={{ minWidth: 180 }}>
                                 <Typography variant="h6" sx={{ mb: 1 }}>Sozlamalar</Typography>
+
                                 <Divider />
                                 <MenuItem>Hammasi joyida</MenuItem>
                                 <Divider />
@@ -232,7 +233,6 @@ export default function MentorLayout() {
                 <main className="p-6">
                     <Outlet />
                 </main>
-                <p className="pl-6 text-[20px]"><strong>Asosiy</strong> <br /><small>Boshqaruv paneli &nbsp; *</small></p>
             </div>
         </div>
     );

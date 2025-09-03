@@ -146,7 +146,7 @@ export default function CoursesPage() {
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/logout">
+            <ListItemButton component={Link} to="/login">
               <ListItemIcon>
                 <ExitToApp className={darkMode ? "text-white" : "text-black"} />
               </ListItemIcon>
@@ -267,8 +267,15 @@ export default function CoursesPage() {
               </TableHead>
               <TableBody>
                 {courses.map((course, index) => (
-                  <TableRow key={course.id} className={`${darkMode ? "bg-gray-800" : "bg-gray-200"}`}>
-                    <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>{index + 1}</TableCell>
+                  <TableRow
+                    key={course.id}
+                    className={`${darkMode ? "bg-gray-800" : "bg-gray-200"}`}
+                  >
+                    <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>
+                      {index + 1}
+                    </TableCell>
+
+                    {/* Banner */}
                     <TableCell>
                       <img
                         src={`https://fn3.fixoo.uz/uploads/banner/${course.banner}`}
@@ -276,25 +283,50 @@ export default function CoursesPage() {
                         className="w-16 h-10 rounded"
                       />
                     </TableCell>
-                    <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>{course.name}</TableCell>
+
+                    <TableCell className={`${darkMode ? "!text-white" : "!text-black"}`}>
+                      <Link
+                        to={`/course/${course.id}`}
+                        className="text-blue-600 hover:underline"
+                      >
+                        {course.name}
+                      </Link>
+                    </TableCell>
+
                     <TableCell>{course.price}</TableCell>
+
                     <TableCell>
-                      <Button variant="contained" color="warning" size="small">Bo‘lim</Button>
+                      <Button variant="contained" color="warning" size="small">
+                        Bo‘lim
+                      </Button>
                     </TableCell>
+
                     <TableCell>
-                      <Button variant="contained" color="success" size="small">Vazifalar</Button>
+                      <Button variant="contained" color="success" size="small">
+                        Vazifalar
+                      </Button>
                     </TableCell>
+
                     <TableCell>
-                      <Button variant="contained" color="primary" size="small">Savol Javob</Button>
+                      <Button variant="contained" color="primary" size="small">
+                        Savol Javob
+                      </Button>
                     </TableCell>
+
                     <TableCell>{course.buyCount || 0}</TableCell>
+
                     <TableCell>
                       <Switch defaultChecked={course.isActive} />
                     </TableCell>
+
                     <TableCell>
                       <Box sx={{ display: "flex", gap: 1 }}>
-                        <IconButton color="primary"><Edit /></IconButton>
-                        <IconButton color="error"><Delete /></IconButton>
+                        <IconButton color="primary">
+                          <Edit />
+                        </IconButton>
+                        <IconButton color="error">
+                          <Delete />
+                        </IconButton>
                       </Box>
                     </TableCell>
                   </TableRow>
